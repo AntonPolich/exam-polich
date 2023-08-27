@@ -1,0 +1,48 @@
+pipeline {
+    agent none
+    stages {
+        stage('Stage 1') {
+            agent any
+            
+            steps {
+                echo '*****Start cloning branch feature************'
+				sh 'mkdir /key/work'
+				sh 'mkdir /key/work/feature'
+				sh 'git clone https://gitlab.com/staskuznetsov/site.git -b feature /key/work/feature'
+				echo '*****End cloning branch feature*************'
+            }
+        }
+		
+		stage('Stage 2') {
+            agent any
+            
+            steps {
+                echo '*****Start cloning branch dev*************'
+                sh 'mkdir /key/work/dev'
+				sh 'git clone https://gitlab.com/staskuznetsov/site.git -b dev /key/work/dev'
+				echo '*****End cloning branch dev*************'
+            }
+        }
+		
+		stage('Stage 3') {
+            agent any
+            
+            steps {
+                echo '*****Start deploying sites*************'
+				sh 'cd /key'
+				sh 'ansible-playbook -u root /key/playbook.yml --key-file=/key/id_rsa'
+				echo '*****End deploying sites *************'
+            }
+        }
+		
+		stage('Stage 4') {
+            agent any
+            
+            steps {
+                echo '*****Start delete temporary file*************'
+				sh 'rm -Rf /key/work'
+				echo '*****End delete temporary file *************'
+            }
+        }
+	}
+}
