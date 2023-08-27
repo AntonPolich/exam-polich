@@ -1,0 +1,77 @@
+
+---
+- name: install nginx
+  hosts: 4.245.200.172
+  become: yes
+
+  vars:
+    source_file: /home/anton/git_hub/main/index.html
+    destin_file: /var/www/html
+
+  tasks:
+
+  - name: Update all apt packeges
+    apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+
+  - name: Upgrade all apt packeges
+    apt: upgrade=dist force_apt_get=yes
+
+  - name: Install nginx
+    apt: name=nginx state=latest
+
+  - name: Copy file Nginx for site
+    copy: src={{ source_file }} dest={{ destin_file }} mode=0555
+
+  - name: Install Python3
+    apt: name=python3
+
+
+- name: install nginx
+  hosts: 74.234.62.149
+  become: yes
+
+  vars:
+    source_file: /home/anton/git_hub/dev/index.html
+    destin_file: /var/www/html
+
+  tasks:
+
+  - name: Update all apt packeges
+    apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+
+  - name: Upgrade all apt packeges
+    apt: upgrade=dist force_apt_get=yes
+
+  - name: Install nginx
+    apt: name=nginx state=latest
+
+  - name: Copy file Nginx for site
+    copy: src={{ source_file }} dest={{ destin_file }} mode=0555
+
+  - name: Install Python3
+    apt: name=python3
+
+- name: install nginx
+  hosts: 20.111.24.107
+  become: yes
+
+  vars:
+    source_file: /home/anton/git_hub/featutre/index.html
+    destin_file: /var/www/html
+
+  tasks:
+
+  - name: Update all apt packeges
+    apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+
+  - name: Upgrade all apt packeges
+    apt: upgrade=dist force_apt_get=yes
+
+  - name: Install nginx
+    apt: name=nginx state=latest
+
+  - name: Copy file Nginx for site
+    copy: src={{ source_file }} dest={{ destin_file }} mode=0555
+
+  - name: Install Python3
+    apt: name=python3
